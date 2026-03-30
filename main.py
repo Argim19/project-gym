@@ -1,4 +1,11 @@
-from services.services import add_client, delete_client, show_client, update_client
+from services.services import (
+    add_client,
+    delete_client,
+    search_client,
+    show_client,
+    update_client,
+)
+from utils.data import load_clients, save_clients
 from utils.validations import validate_id
 
 
@@ -16,7 +23,7 @@ def show_menu():
 
 def run():
 
-    client = []
+    client = load_clients()
     types = {
         "type_plan": ["mensual", "trimestral", "anual"],
         "state": ["active", "inactive"],
@@ -35,18 +42,21 @@ def run():
                         continue
 
                     add_client(client, id_client, types)
+                    save_clients(client)
 
                 case 2:
                     show_client(client)
 
                 case 3:
-                    print(f"option selected", option)
+                    search_client(client)
 
                 case 4:
                     update_client(client, types)
+                    save_clients(client)
 
                 case 5:
                     delete_client(client)
+                    save_clients(client)
 
                 case 6:
                     break

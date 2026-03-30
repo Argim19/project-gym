@@ -43,6 +43,58 @@ def show_client(client):
         )
 
 
+def search_client(client):
+    if not client:
+        print("no data")
+        return
+
+    print("--- SEARCH CLIENT ---")
+    print("1. search by ID")
+    print("2. search by name")
+
+    option = int(input("select option: "))
+
+    match option:
+        case 1:
+            id_client = int(input("enter client ID: "))
+
+            for person in client:
+                if person["id"] == id_client:
+                    print("--- CLIENT FOUND ---")
+                    print(
+                        f"ID:{person['id']} | "
+                        f"Name:{person['name']} | "
+                        f"Age:{person['age']} | "
+                        f"Plan:{person['type_plan']} | "
+                        f"State:{person['state']}"
+                    )
+                    return
+
+            print("client not found")
+
+        case 2:
+            name_client = input("enter client name: ").strip().lower()
+
+            found = False
+            for person in client:
+                if person["name"].strip().lower() == name_client:
+                    print("--- CLIENT FOUND ---")
+                    print(
+                        f"ID:{person['id']} | "
+                        f"Name:{person['name']} | "
+                        f"Age:{person['age']} | "
+                        f"Plan:{person['type_plan']} | "
+                        f"State:{person['state']}"
+                    )
+                    found = True
+
+            if not found:
+                print("client not found")
+
+        case _:
+            print("invalid option")
+
+
 def update_client(client, types):
     id_client = int(input("enter client ID to update: "))
 
